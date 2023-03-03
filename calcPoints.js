@@ -2,8 +2,11 @@ const calcPoints = (receipt) => {
   let namePoints = getNamePoints(receipt);
   let roundDollarTotalPoints = getRoundDollarPoints(receipt);
   let multipleOfQuarterPoints = getMultipleOfQuarterPoints(receipt);
+  let pairsPoints = getPairsPoints(receipt);
 
-  return namePoints + roundDollarTotalPoints + multipleOfQuarterPoints;
+  return (
+    namePoints + roundDollarTotalPoints + multipleOfQuarterPoints + pairsPoints
+  );
 };
 
 // One point for every alphanumeric character in the retailer name.
@@ -34,7 +37,12 @@ const getMultipleOfQuarterPoints = (receipt) => {
   if (total % 0.25 == 0) return 25;
   return 0;
 };
-
+// 5 points for every two items on the receipt.
+const getPairsPoints = (receipt) => {
+  let numPairs = Math.floor(receipt.items.length / 2);
+  let points = numPairs * 5;
+  return points;
+};
 let r1 = {
   retailer: "Target",
   purchaseDate: "2022-01-01",
@@ -61,7 +69,7 @@ let r1 = {
       price: "12.00",
     },
   ],
-  total: "35.25",
+  total: "35.35",
 };
 
 let r2 = {
