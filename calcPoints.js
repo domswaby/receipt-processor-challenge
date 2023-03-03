@@ -1,7 +1,9 @@
 const calcPoints = (receipt) => {
   let namePoints = getNamePoints(receipt);
-
-  return namePoints;
+  let roundDollarTotalPoints = getRoundDollarPoints(receipt);
+  
+  
+  return namePoints + roundDollarTotalPoints;
 };
 
 // One point for every alphanumeric character in the retailer name.
@@ -17,6 +19,14 @@ const getNamePoints = (receipt) => {
   }
   return count;
 };
+const getRoundDollarPoints = (receipt) => {
+    let total = Number(receipt.total)
+    if(total % 1 != 0){
+        return 0
+    }
+
+    return 50
+}
 
 let r1 = {
   retailer: "Target",
