@@ -133,5 +133,7 @@ let r2 = {
   total: "9.00",
 };
 
+module.exports = calcPoints
+
 console.log(calcPoints(r1));
 console.log(calcPoints(r2));
