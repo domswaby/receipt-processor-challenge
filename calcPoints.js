@@ -4,7 +4,8 @@ const calcPoints = (receipt) => {
   let multipleOfQuarterPoints = getMultipleOfQuarterPoints(receipt);
   let pairsPoints = getPairsPoints(receipt);
   let trimmedLengthPoints = getTrimmedLengthPoints(receipt);
-  let oddDayPoints = getOddDayPoints(receipt)
+  let oddDayPoints = getOddDayPoints(receipt);
+  let purchaseTimePoints = getPurchaseTimePoints(receipt);
 
   return (
     namePoints +
@@ -12,7 +13,8 @@ const calcPoints = (receipt) => {
     multipleOfQuarterPoints +
     pairsPoints +
     trimmedLengthPoints +
-    oddDayPoints
+    oddDayPoints +
+    purchaseTimePoints
   );
 };
 
@@ -66,15 +68,20 @@ const getTrimmedLengthPoints = (receipt) => {
 };
 // 6 points if the day in the purchase date is odd.
 const getOddDayPoints = (receipt) => {
-    let dayNum = Number(receipt.purchaseDate[5] + receipt.purchaseDate[6]);
-    if(dayNum % 2 !== 0) return 6; 
-    return 0;
-}
-
+  let dayNum = Number(receipt.purchaseDate[5] + receipt.purchaseDate[6]);
+  if (dayNum % 2 !== 0) return 6;
+  return 0;
+};
+// 10 points if the time of purchase is after 2:00pm and before 4:00pm.
+const getPurchaseTimePoints = (receipt) => {
+  let hours = Number(receipt.purchaseTime.split(":")[0]);
+  if (hours >= 14 && hours < 16) return 10;
+  return 0;
+};
 let r1 = {
   retailer: "Target",
   purchaseDate: "2022-01-01",
-  purchaseTime: "13:01",
+  purchaseTime: "16:00",
   items: [
     {
       shortDescription: "Mountain Dew 12PK",
