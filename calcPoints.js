@@ -4,13 +4,15 @@ const calcPoints = (receipt) => {
   let multipleOfQuarterPoints = getMultipleOfQuarterPoints(receipt);
   let pairsPoints = getPairsPoints(receipt);
   let trimmedLengthPoints = getTrimmedLengthPoints(receipt);
+  let oddDayPoints = getOddDayPoints(receipt)
 
   return (
     namePoints +
     roundDollarTotalPoints +
     multipleOfQuarterPoints +
     pairsPoints +
-    trimmedLengthPoints
+    trimmedLengthPoints +
+    oddDayPoints
   );
 };
 
@@ -48,11 +50,9 @@ const getPairsPoints = (receipt) => {
   let points = numPairs * 5;
   return points;
 };
-
 // If the trimmed length of the item description is a multiple of 3,
 // multiply the price by 0.2 and round up to the nearest integer.
 // The result is the number of points earned.
-
 const getTrimmedLengthPoints = (receipt) => {
   let points = 0;
   for (let item of receipt.items) {
@@ -64,6 +64,12 @@ const getTrimmedLengthPoints = (receipt) => {
   }
   return points;
 };
+// 6 points if the day in the purchase date is odd.
+const getOddDayPoints = (receipt) => {
+    let dayNum = Number(receipt.purchaseDate[5] + receipt.purchaseDate[6]);
+    if(dayNum % 2 !== 0) return 6; 
+    return 0;
+}
 
 let r1 = {
   retailer: "Target",
