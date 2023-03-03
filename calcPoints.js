@@ -1,9 +1,9 @@
 const calcPoints = (receipt) => {
   let namePoints = getNamePoints(receipt);
   let roundDollarTotalPoints = getRoundDollarPoints(receipt);
-  
-  
-  return namePoints + roundDollarTotalPoints;
+  let multipleOfQuarterPoints = getMultipleOfQuarterPoints(receipt);
+
+  return namePoints + roundDollarTotalPoints + multipleOfQuarterPoints;
 };
 
 // One point for every alphanumeric character in the retailer name.
@@ -19,14 +19,21 @@ const getNamePoints = (receipt) => {
   }
   return count;
 };
+// 50 points if the total is a round dollar amount with no cents.
 const getRoundDollarPoints = (receipt) => {
-    let total = Number(receipt.total)
-    if(total % 1 != 0){
-        return 0
-    }
+  let total = Number(receipt.total);
+  if (total % 1 !== 0) {
+    return 0;
+  }
 
-    return 50
-}
+  return 50;
+};
+// 25 points if the total is a multiple of 0.25.
+const getMultipleOfQuarterPoints = (receipt) => {
+  let total = Number(receipt.total);
+  if (total % 0.25 == 0) return 25;
+  return 0;
+};
 
 let r1 = {
   retailer: "Target",
@@ -54,7 +61,7 @@ let r1 = {
       price: "12.00",
     },
   ],
-  total: "35.35",
+  total: "35.25",
 };
 
 let r2 = {
@@ -82,5 +89,5 @@ let r2 = {
   total: "9.00",
 };
 
-console.log(calcPoints(r1)); 
+console.log(calcPoints(r1));
 // calcPoints(r2);
