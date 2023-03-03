@@ -68,7 +68,7 @@ const getTrimmedLengthPoints = (receipt) => {
 };
 // 6 points if the day in the purchase date is odd.
 const getOddDayPoints = (receipt) => {
-  let dayNum = Number(receipt.purchaseDate[5] + receipt.purchaseDate[6]);
+  let dayNum = Number(receipt.purchaseDate[8] + receipt.purchaseDate[9]);
   if (dayNum % 2 !== 0) return 6;
   return 0;
 };
@@ -78,6 +78,7 @@ const getPurchaseTimePoints = (receipt) => {
   if (hours >= 14 && hours < 16) return 10;
   return 0;
 };
+
 let r1 = {
   retailer: "Target",
   purchaseDate: "2022-01-01",
@@ -133,4 +134,4 @@ let r2 = {
 };
 
 console.log(calcPoints(r1));
-// calcPoints(r2);
+console.log(calcPoints(r2));
