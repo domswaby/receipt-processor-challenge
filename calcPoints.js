@@ -3,9 +3,14 @@ const calcPoints = (receipt) => {
   let roundDollarTotalPoints = getRoundDollarPoints(receipt);
   let multipleOfQuarterPoints = getMultipleOfQuarterPoints(receipt);
   let pairsPoints = getPairsPoints(receipt);
+  let trimmedLengthPoints = getTrimmedLengthPoints(receipt);
 
   return (
-    namePoints + roundDollarTotalPoints + multipleOfQuarterPoints + pairsPoints
+    namePoints +
+    roundDollarTotalPoints +
+    multipleOfQuarterPoints +
+    pairsPoints +
+    trimmedLengthPoints
   );
 };
 
@@ -43,6 +48,23 @@ const getPairsPoints = (receipt) => {
   let points = numPairs * 5;
   return points;
 };
+
+// If the trimmed length of the item description is a multiple of 3,
+// multiply the price by 0.2 and round up to the nearest integer.
+// The result is the number of points earned.
+
+const getTrimmedLengthPoints = (receipt) => {
+  let points = 0;
+  for (let item of receipt.items) {
+    let { shortDescription, price } = item;
+    if (shortDescription.trim().length % 3 == 0) {
+      price *= 0.2;
+      points += Math.ceil(price);
+    }
+  }
+  return points;
+};
+
 let r1 = {
   retailer: "Target",
   purchaseDate: "2022-01-01",
