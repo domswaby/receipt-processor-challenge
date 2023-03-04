@@ -1,3 +1,6 @@
+// This file is a module containing helper functions for calculating the 
+// bonus points of a receipt
+
 const calcPoints = (receipt) => {
   let namePoints = getNamePoints(receipt);
   let roundDollarTotalPoints = getRoundDollarPoints(receipt);
@@ -79,61 +82,4 @@ const getPurchaseTimePoints = (receipt) => {
   return 0;
 };
 
-let r1 = {
-  retailer: "Target",
-  purchaseDate: "2022-01-01",
-  purchaseTime: "16:00",
-  items: [
-    {
-      shortDescription: "Mountain Dew 12PK",
-      price: "6.49",
-    },
-    {
-      shortDescription: "Emils Cheese Pizza",
-      price: "12.25",
-    },
-    {
-      shortDescription: "Knorr Creamy Chicken",
-      price: "1.26",
-    },
-    {
-      shortDescription: "Doritos Nacho Cheese",
-      price: "3.35",
-    },
-    {
-      shortDescription: "   Klarbrunn 12-PK 12 FL OZ  ",
-      price: "12.00",
-    },
-  ],
-  total: "35.35",
-};
-
-let r2 = {
-  retailer: "M&M Corner Market",
-  purchaseDate: "2022-03-20",
-  purchaseTime: "14:33",
-  items: [
-    {
-      shortDescription: "Gatorade",
-      price: "2.25",
-    },
-    {
-      shortDescription: "Gatorade",
-      price: "2.25",
-    },
-    {
-      shortDescription: "Gatorade",
-      price: "2.25",
-    },
-    {
-      shortDescription: "Gatorade",
-      price: "2.25",
-    },
-  ],
-  total: "9.00",
-};
-
-module.exports = calcPoints
-
-console.log(calcPoints(r1));
-console.log(calcPoints(r2));
+module.exports = calcPoints;
