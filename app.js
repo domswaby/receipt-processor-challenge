@@ -40,6 +40,6 @@ app.post("/receipts/process", (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("running on 3000...");
+app.listen(8080, () => {
+  console.log("running on 8080...");
 });
